@@ -75,6 +75,8 @@ module PipelineCPU (
     wire [31:0] readData1_id_bypass;
     wire [31:0] readData2_id_bypass;
 
+    wire branch_flush = (PC_sel == 2'b00);
+
     PC m_PC(
         .clk(clk),
         .rst(start),
@@ -239,7 +241,7 @@ module PipelineCPU (
     IF_IDRegister m_IF_IDRegister(
         .clk(clk),
         .rst(start),
-        .enable(~stall_signal),
+        .enable(~stall_signal && ~branch_flush),
         .pc_in(pc_o),
         .instr_in(inst),
         .adder1_in(adder1_out),
@@ -251,7 +253,7 @@ module PipelineCPU (
     ID_EXRegister m_ID_EXRegister(
         .clk(clk),
         .rst(start),
-        .flush(stall_signal),
+        .flush(stall_signal || branch_flush),
         .wb_in({regWrite, write_data_sel}),
         .mem_in({branch, jump, jalr, memRead, memWrite}),
         .ex_in({ALUOp, ALUSrc}),

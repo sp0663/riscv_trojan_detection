@@ -72,6 +72,8 @@ module PipelineCPU (
     wire [31:0] readData1_id_bypass;
     wire [31:0] readData2_id_bypass;
 
+    wire branch_flush = (PC_sel == 2'b00);
+
     PC m_PC(
         .clk(clk),
         .rst(start),
@@ -117,19 +119,24 @@ module PipelineCPU (
         // ID stage (for load-use stalling)
         .id_rs1(inst_ifid_out[19:15]),
         .id_rs2(inst_ifid_out[24:20]),
+
         // EX stage (for forwarding)
         .ex_rs1(rs1_idex_out),
         .ex_rs2(rs2_idex_out),
+
         // ID/EX stage metadata
         .idex_rd(rd_idex_out),
         .idex_memRead(mem_idex_out[1]),
+
         // EX/MEM stage metadata
         .exmem_rd(rd_exmem_out),
         .exmem_regWrite(wb_exmem_out[2]),
         .exmem_memRead(mem_exmem_out[1]),
+
         // MEM/WB stage metadata
         .memwb_rd(rd_memwb_out),
         .memwb_regWrite(wb_memwb_out[2]),
+        
         // Outputs
         .forward_rs1(forward_rs1),
         .forward_rs2(forward_rs2),
@@ -240,7 +247,7 @@ module PipelineCPU (
     IF_IDRegister m_IF_IDRegister(
         .clk(clk),
         .rst(start),
-        .enable(~stall_signal),
+        .enable(~~stall_signal && ~branch_flush),
         .pc_in(pc_o),
         .instr_in(inst),
         .adder1_in(adder1_out),
@@ -252,7 +259,7 @@ module PipelineCPU (
     ID_EXRegister m_ID_EXRegister(
         .clk(clk),
         .rst(start),
-        .flush(stall_signal),
+        .flush(stall_signal || branch_flush),
         .wb_in({regWrite, write_data_sel}),
         .mem_in({branch, jump, jalr, memRead, memWrite}),
         .ex_in({ALUOp, ALUSrc}),
