@@ -1,7 +1,4 @@
-// PipelineCPU_trojan_seq.v - Sequential Trojan pipeline top-level
-// Only change vs PipelineCPU.v: ALU instantiation passes .clk and .rst
-
-module PipelineCPU (
+module PipelineCPU_trojan_seq (
     input clk,
     input start
     
@@ -210,7 +207,7 @@ module PipelineCPU (
         .ALUCtl(ALUCtl)
     );
 
-    ALU m_ALU(
+    ALU_seq m_ALU(
         .clk(clk),
         .rst(start),
         .ALUCtl(ALUCtl),

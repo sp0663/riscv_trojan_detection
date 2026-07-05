@@ -10,7 +10,7 @@
 //   ADDED  input rst
 // PipelineCPU_trojan_seq.v passes these from the top-level ports
 
-module ALU (
+module ALU_seq (
     input clk,
     input rst,
     input  [3:0]  ALUCtl,

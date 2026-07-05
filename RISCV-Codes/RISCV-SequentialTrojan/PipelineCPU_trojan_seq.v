@@ -1,4 +1,7 @@
-module PipelineCPU (
+// PipelineCPU_trojan_seq.v - Sequential Trojan pipeline top-level
+// Only change vs PipelineCPU.v: ALU instantiation passes .clk and .rst
+
+module PipelineCPU_trojan_seq (
     input clk,
     input start
     
@@ -116,28 +119,17 @@ module PipelineCPU (
     );
 
     hazard_detection_unit m_hazard_unit (
-        // ID stage (for load-use stalling)
-        .id_rs1(inst_ifid_out[19:15]),
-        .id_rs2(inst_ifid_out[24:20]),
-
-        // EX stage (for forwarding)
+        .id_rs1(inst_ifid_out[19:15]), // ID stage (for load-use stalling)
+        .id_rs2(inst_ifid_out[24:20]),        // EX stage (for forwarding)
         .ex_rs1(rs1_idex_out),
-        .ex_rs2(rs2_idex_out),
-
-        // ID/EX stage metadata
+        .ex_rs2(rs2_idex_out),        // ID/EX stage metadata
         .idex_rd(rd_idex_out),
-        .idex_memRead(mem_idex_out[1]),
-
-        // EX/MEM stage metadata
+        .idex_memRead(mem_idex_out[1]),        // EX/MEM stage metadata
         .exmem_rd(rd_exmem_out),
         .exmem_regWrite(wb_exmem_out[2]),
-        .exmem_memRead(mem_exmem_out[1]),
-
-        // MEM/WB stage metadata
+        .exmem_memRead(mem_exmem_out[1]),        // MEM/WB stage metadata
         .memwb_rd(rd_memwb_out),
-        .memwb_regWrite(wb_memwb_out[2]),
-        
-        // Outputs
+        .memwb_regWrite(wb_memwb_out[2]),        // Outputs
         .forward_rs1(forward_rs1),
         .forward_rs2(forward_rs2),
         .stall(stall_signal)
@@ -218,7 +210,9 @@ module PipelineCPU (
         .ALUCtl(ALUCtl)
     );
 
-    ALU m_ALU(
+    ALU_seq m_ALU(
+        .clk(clk),
+        .rst(start),
         .ALUCtl(ALUCtl),
         .A(alu_operand1_forwarded),
         .B(alu_b_final),
@@ -247,7 +241,7 @@ module PipelineCPU (
     IF_IDRegister m_IF_IDRegister(
         .clk(clk),
         .rst(start),
-        .enable(~~stall_signal && ~branch_flush),
+        .enable(~stall_signal && ~branch_flush),
         .pc_in(pc_o),
         .instr_in(inst),
         .adder1_in(adder1_out),

@@ -14,7 +14,7 @@
 //   - The MEM/WB forwarding path still works, so a 2-cycle hazard on a0 is
 //     handled correctly; only the 1-cycle case is corrupted.
 
-module hazard_detection_unit (
+module hazard_detection_unit_ctrl (
     // ID stage
     input  [4:0] id_rs1,
     input  [4:0] id_rs2,

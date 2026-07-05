@@ -1,4 +1,4 @@
-module PipelineCPU (
+module PipelineCPU_trojan_comb (
     input clk,
     input start
     
@@ -218,7 +218,7 @@ module PipelineCPU (
         .ALUCtl(ALUCtl)
     );
 
-    ALU m_ALU(
+    ALU_comb m_ALU(
         .ALUCtl(ALUCtl),
         .A(alu_operand1_forwarded),
         .B(alu_b_final),

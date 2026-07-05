@@ -1,4 +1,4 @@
-module ALU (
+module ALU_comb (
     input [3:0] ALUCtl,
     input [31:0] A,B,
     output reg [31:0] ALUOut,
