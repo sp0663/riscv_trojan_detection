@@ -1,0 +1,219 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+183 (git sha1 b285b72e3-dirty, GNU /usr/bin/c++ 15.2.0)
+
+-- Executing script file `ctrl_script.ys' --
+
+1. Executing Verilog-2005 frontend: hazard_detection_unit.v
+Parsing Verilog input from `hazard_detection_unit.v' to AST representation.
+Generating RTLIL representation for module `\hazard_detection_unit'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: hazard_detection_unit_ctrl.v
+Parsing Verilog input from `hazard_detection_unit_ctrl.v' to AST representation.
+Generating RTLIL representation for module `\hazard_detection_unit_ctrl'.
+Successfully finished Verilog frontend.
+
+3. Executing PROC pass (convert processes to netlists).
+
+3.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 5 switch rules as full_case in process $proc$hazard_detection_unit_ctrl.v:55$36 in module hazard_detection_unit_ctrl.
+Marked 5 switch rules as full_case in process $proc$hazard_detection_unit.v:40$3 in module hazard_detection_unit.
+Removed a total of 0 dead cases.
+
+3.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 6 assignments to connections.
+
+3.4. Executing PROC_INIT pass (extract init attributes).
+
+3.5. Executing PROC_ARST pass (detect async resets in processes).
+
+3.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~10 debug messages>
+
+3.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\hazard_detection_unit_ctrl.$proc$hazard_detection_unit_ctrl.v:55$36'.
+     1/7: $3\forward_rs2[1:0]
+     2/7: $3\forward_rs1[1:0]
+     3/7: $1\stall[0:0]
+     4/7: $2\forward_rs2[1:0]
+     5/7: $1\forward_rs2[1:0]
+     6/7: $2\forward_rs1[1:0]
+     7/7: $1\forward_rs1[1:0]
+Creating decoders for process `\hazard_detection_unit.$proc$hazard_detection_unit.v:40$3'.
+     1/7: $3\forward_rs2[1:0]
+     2/7: $3\forward_rs1[1:0]
+     3/7: $1\stall[0:0]
+     4/7: $2\forward_rs2[1:0]
+     5/7: $1\forward_rs2[1:0]
+     6/7: $2\forward_rs1[1:0]
+     7/7: $1\forward_rs1[1:0]
+
+3.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\hazard_detection_unit_ctrl.\forward_rs1' from process `\hazard_detection_unit_ctrl.$proc$hazard_detection_unit_ctrl.v:55$36'.
+No latch inferred for signal `\hazard_detection_unit_ctrl.\forward_rs2' from process `\hazard_detection_unit_ctrl.$proc$hazard_detection_unit_ctrl.v:55$36'.
+No latch inferred for signal `\hazard_detection_unit_ctrl.\stall' from process `\hazard_detection_unit_ctrl.$proc$hazard_detection_unit_ctrl.v:55$36'.
+No latch inferred for signal `\hazard_detection_unit.\forward_rs1' from process `\hazard_detection_unit.$proc$hazard_detection_unit.v:40$3'.
+No latch inferred for signal `\hazard_detection_unit.\forward_rs2' from process `\hazard_detection_unit.$proc$hazard_detection_unit.v:40$3'.
+No latch inferred for signal `\hazard_detection_unit.\stall' from process `\hazard_detection_unit.$proc$hazard_detection_unit.v:40$3'.
+
+3.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+3.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 5 empty switches in `\hazard_detection_unit_ctrl.$proc$hazard_detection_unit_ctrl.v:55$36'.
+Removing empty process `hazard_detection_unit_ctrl.$proc$hazard_detection_unit_ctrl.v:55$36'.
+Found and cleaned up 5 empty switches in `\hazard_detection_unit.$proc$hazard_detection_unit.v:40$3'.
+Removing empty process `hazard_detection_unit.$proc$hazard_detection_unit.v:40$3'.
+Cleaned up 10 empty switches.
+
+3.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module hazard_detection_unit_ctrl.
+<suppressed ~7 debug messages>
+Optimizing module hazard_detection_unit.
+<suppressed ~6 debug messages>
+
+4. Executing EQUIV_MAKE pass (creating equiv checking module).
+Presumably equivalent wires: exmem_can_forward_gold ($logic_and$hazard_detection_unit.v:38$2_Y_gold), exmem_can_forward_gate ($logic_and$hazard_detection_unit_ctrl.v:46$29_Y_gate) -> exmem_can_forward
+Presumably equivalent wires: stall_gold ($procmux$97_Y_gold), stall_gate ($procmux$70_Y_gate) -> stall
+Presumably equivalent wires: forward_rs2_gold ($procmux$91_Y_gold), forward_rs2_gate ($procmux$64_Y_gate) -> forward_rs2
+Presumably equivalent wires: forward_rs1_gold ($procmux$94_Y_gold), forward_rs1_gate ($procmux$67_Y_gate) -> forward_rs1
+Presumably equivalent wires: memwb_regWrite_gold (\memwb_regWrite_gold), memwb_regWrite_gate (\memwb_regWrite_gate) -> memwb_regWrite
+Presumably equivalent wires: memwb_rd_gold (\memwb_rd_gold), memwb_rd_gate (\memwb_rd_gate) -> memwb_rd
+Presumably equivalent wires: exmem_memRead_gold (\exmem_memRead_gold), exmem_memRead_gate (\exmem_memRead_gate) -> exmem_memRead
+Presumably equivalent wires: exmem_regWrite_gold (\exmem_regWrite_gold), exmem_regWrite_gate (\exmem_regWrite_gate) -> exmem_regWrite
+Presumably equivalent wires: exmem_rd_gold (\exmem_rd_gold), exmem_rd_gate (\exmem_rd_gate) -> exmem_rd
+Presumably equivalent wires: idex_memRead_gold (\idex_memRead_gold), idex_memRead_gate (\idex_memRead_gate) -> idex_memRead
+Presumably equivalent wires: idex_rd_gold (\idex_rd_gold), idex_rd_gate (\idex_rd_gate) -> idex_rd
+Presumably equivalent wires: ex_rs2_gold (\ex_rs2_gold), ex_rs2_gate (\ex_rs2_gate) -> ex_rs2
+Presumably equivalent wires: ex_rs1_gold (\ex_rs1_gold), ex_rs1_gate (\ex_rs1_gate) -> ex_rs1
+Presumably equivalent wires: id_rs2_gold (\id_rs2_gold), id_rs2_gate (\id_rs2_gate) -> id_rs2
+Presumably equivalent wires: id_rs1_gold (\id_rs1_gold), id_rs1_gate (\id_rs1_gate) -> id_rs1
+
+5. Executing EQUIV_SIMPLE pass.
+Found 6 unproven $equiv cells (4 groups) in hazard_detection_unit_equiv:
+ Grouping SAT models for \forward_rs1:
+  Trying to prove $equiv for \forward_rs1 [0]:ezsat
+ failed.
+  Trying to prove $equiv for \forward_rs1 [1]:ezsat
+ failed.
+ Grouping SAT models for \forward_rs2:
+  Trying to prove $equiv for \forward_rs2 [0]:ezsat
+ success!
+  Trying to prove $equiv for \forward_rs2 [1]:ezsat
+ success!
+  Trying to prove $equiv for \stall:ezsat
+ success!
+  Trying to prove $equiv for \exmem_can_forward:ezsat
+ success!
+Proved 4 previously unproven $equiv cells.
+
+6. Executing EQUIV_STATUS pass.
+Found 6 $equiv cells in hazard_detection_unit_equiv:
+  Of those cells 4 are proven and 2 are unproven.
+  Unproven $equiv $auto$equiv_make.cc:258:find_same_wires$122: \forward_rs1_gold [1] \forward_rs1_gate [1]
+  Unproven $equiv $auto$equiv_make.cc:258:find_same_wires$121: \forward_rs1_gold [0] \forward_rs1_gate [0]
+No $equiv cells found in hazard_detection_unit_ctrl.
+No $equiv cells found in hazard_detection_unit.
+Found a total of 2 unproven $equiv cells.
+
+7. Executing EQUIV_MITER pass.
+Creating miter hazard_detection_unit_miter from module hazard_detection_unit_equiv.
+Seed $equiv cell: $auto$equiv_make.cc:258:find_same_wires$122
+Seed $equiv cell: $auto$equiv_make.cc:258:find_same_wires$121
+Seed $equiv cell: $auto$equiv_make.cc:258:find_same_wires$120
+Seed $equiv cell: $auto$equiv_make.cc:258:find_same_wires$119
+Seed $equiv cell: $auto$equiv_make.cc:258:find_same_wires$118
+Seed $equiv cell: $auto$equiv_make.cc:295:find_same_wires$117
+Gold cone: 41 cells (0 leaves).
+Gate cone: 59 cells (0 leaves).
+Selected 71 miter cells.
+Selected 80 miter wires.
+Created miter input port idex_memRead.
+Created miter input port idex_rd.
+Created miter input port id_rs2.
+Created miter input port id_rs1.
+Created miter input port exmem_rd.
+Created miter input port ex_rs1.
+Created miter input port exmem_regWrite.
+Created miter input port exmem_memRead.
+Created miter input port memwb_rd.
+Created miter input port memwb_regWrite.
+Created miter output port forward_rs1.
+Created miter output port forward_rs2.
+Created miter input port ex_rs2.
+Created miter output port stall.
+Created miter output port exmem_can_forward.
+
+8. Executing SAT pass (solving SAT problems in the circuit).
+Using SAT solver `minisat`.
+
+Setting up SAT problem:
+Final constraint equation: { } = { }
+Imported 76 cells to SAT database.
+Import proof-constraint: \trigger = 1'0
+Final proof equation: \trigger = 1'0
+Import show expression: \idex_memRead
+Import show expression: \idex_rd
+Import show expression: \id_rs2
+Import show expression: \id_rs1
+Import show expression: \exmem_rd
+Import show expression: \ex_rs1
+Import show expression: \exmem_regWrite
+Import show expression: \exmem_memRead
+Import show expression: \memwb_rd
+Import show expression: \memwb_regWrite
+Import show expression: \ex_rs2
+Import show expression: \trigger
+Import show expression: \cmp_forward_rs1[1]
+Import show expression: \cmp_forward_rs1[0]
+Import show expression: \forward_rs1
+Import show expression: \forward_rs2
+Import show expression: \stall
+Import show expression: \exmem_can_forward
+
+Solving problem with 593 variables and 1514 clauses..
+SAT proof finished - model found: FAIL!
+
+   ______                   ___       ___       _ _            _ _ 
+  (_____ \                 / __)     / __)     (_) |          | | |
+   _____) )___ ___   ___ _| |__    _| |__ _____ _| | _____  __| | |
+  |  ____/ ___) _ \ / _ (_   __)  (_   __|____ | | || ___ |/ _  |_|
+  | |   | |  | |_| | |_| || |       | |  / ___ | | || ____( (_| |_ 
+  |_|   |_|   \___/ \___/ |_|       |_|  \_____|_|\_)_____)\____|_|
+
+
+  Signal Name                      Dec       Hex           Bin
+  ------------------------ ----------- --------- -------------
+  \cmp_forward_rs1[0]                0         0             0
+  \cmp_forward_rs1[1]                1         1             1
+  \ex_rs1                           10         a         01010
+  \ex_rs2                           20        14         10100
+  \exmem_can_forward                 1         1             1
+  \exmem_memRead                     0         0             0
+  \exmem_rd                         10         a         01010
+  \exmem_regWrite                    1         1             1
+  \forward_rs1                       1         1            01
+  \forward_rs2                       0         0            00
+  \id_rs1                            2         2         00010
+  \id_rs2                            3         3         00011
+  \idex_memRead                      0         0             0
+  \idex_rd                           2         2         00010
+  \memwb_rd                          2         2         00010
+  \memwb_regWrite                    1         1             1
+  \stall                             0         0             0
+  \trigger                           1         1             1
+
+End of script. Logfile hash: d90931a7d0, time: 0.44s, user: 0.11s, system: 0.01s, MEM: 54.92 MB peak
+Yosys 0.66+183 (git sha1 b285b72e3-dirty, GNU /usr/bin/c++ 15.2.0)
+Time spent: 32% 4x read_verilog (0 sec), 31% 1x equiv_simple (0 sec), ...

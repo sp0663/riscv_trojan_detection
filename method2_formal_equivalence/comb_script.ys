@@ -1,0 +1,9 @@
+read_verilog ALU.v
+read_verilog ALU_comb.v
+proc
+equiv_make ALU ALU_comb ALU_equiv
+equiv_simple
+equiv_status
+equiv_miter -trigger -cmp ALU_miter ALU_equiv
+sat -prove trigger 0 -show-inputs -show-outputs ALU_miter
+

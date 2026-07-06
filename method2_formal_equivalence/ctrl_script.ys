@@ -1,0 +1,9 @@
+read_verilog hazard_detection_unit.v
+read_verilog hazard_detection_unit_ctrl.v
+proc
+equiv_make hazard_detection_unit hazard_detection_unit_ctrl hazard_detection_unit_equiv
+equiv_simple
+equiv_status
+equiv_miter -trigger -cmp hazard_detection_unit_miter hazard_detection_unit_equiv
+sat -prove trigger 0 -show-inputs -show-outputs hazard_detection_unit_miter
+

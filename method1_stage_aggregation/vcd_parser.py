@@ -1,7 +1,6 @@
-#!/usr/bin/env python3
 """
 vcd_parser.py — VCD parser for RISC-V Trojan side-channel analysis
-═══════════════════════════════════════════════════════════════════
+
 Parses all_designs.vcd (produced by iverilog/vvp) and returns a
 structured dictionary consumed by every downstream analysis method.
 
@@ -39,7 +38,6 @@ import sys
 from pathlib import Path
 from collections import defaultdict
 
-# ── Design instance prefixes (must match testbench instantiation names) ──
 DESIGNS = {
     "dut_clean" : "clean",
     "dut_comb"  : "comb",
@@ -47,56 +45,36 @@ DESIGNS = {
     "dut_ctrl"  : "ctrl",
 }
 
-# ── Value helpers ────────────────────────────────────────────────────────
 def _parse_scalar(val_str):
-    """Parse a 1-bit VCD value: '0','1','x','z' → int or str."""
     if val_str in ('x', 'X', 'z', 'Z'):
         return 'x'
     return int(val_str)
 
 def _parse_vector(val_str, width):
-    """
-    Parse a multi-bit VCD value string (no leading 'b').
-    e.g. '00101101' → 45,  'xxxx' → 'x'
-    """
     if 'x' in val_str.lower() or 'z' in val_str.lower():
         return 'x'
     return int(val_str, 2)
 
 def _hamming_weight(a, b, width):
-    """
-    Number of bits that changed between two integer values.
-    Used by method-5 power proxy.  Returns 0 if either is 'x'.
-    """
     if a == 'x' or b == 'x':
         return 0
     mask = (1 << width) - 1
     return bin((int(a) ^ int(b)) & mask).count('1')
 
 
-# ── Main parser ──────────────────────────────────────────────────────────
 def parse_vcd(vcd_path: str) -> dict:
     """
     Parse a VCD file and return the analysis dictionary.
 
-    Parameters
-    ----------
-    vcd_path : str | Path
-        Path to the .vcd file.
-
     Returns
-    -------
     dict
-        Nested dict:  design → signal_name → {width, toggles, waveform}
+        Nested dict:  design - signal_name - {width, toggles, waveform}
         Also includes a top-level "meta" key with timescale info.
     """
     vcd_path = Path(vcd_path)
     if not vcd_path.exists():
         sys.exit(f"ERROR: VCD file not found: {vcd_path}")
 
-    # ── Phase 1: parse header (signal definitions) ───────────────────────
-    # symbol_map  : { symbol_code : {"name": full_hierarchical_name, "width": int} }
-    # scope_stack : tracks current hierarchy scope
     symbol_map  = {}
     scope_stack = []
     timescale   = "unknown"
@@ -107,7 +85,6 @@ def parse_vcd(vcd_path: str) -> dict:
     # Tokenise — VCD is whitespace-delimited
     tokens = iter(content.split())
 
-    # We'll collect all tokens into a list for two-pass processing
     token_list = content.split()
     idx = 0
 
@@ -120,7 +97,6 @@ def parse_vcd(vcd_path: str) -> dict:
         idx += 1
         return t
 
-    # ── Header pass ──────────────────────────────────────────────────────
     while idx < len(token_list):
         tok = consume()
 
@@ -168,8 +144,6 @@ def parse_vcd(vcd_path: str) -> dict:
             consume()   # $end
             break       # header done — move to value changes
 
-    # ── Phase 2: parse value changes ────────────────────────────────────
-    # raw_waves: { symbol : [(time, value), ...] }
     raw_waves   = defaultdict(list)
     current_time = 0
 
@@ -215,8 +189,6 @@ def parse_vcd(vcd_path: str) -> dict:
                     if t == '$end':
                         break
 
-    # ── Phase 3: count toggles & build output structure ─────────────────
-    # result[design][stripped_signal_name] = {width, toggles, waveform, hamming}
     result = {d: {} for d in DESIGNS.values()}
     result['meta'] = {'timescale': timescale, 'end_time': current_time}
 
@@ -262,50 +234,10 @@ def parse_vcd(vcd_path: str) -> dict:
 
     return result
 
-
-# ── CLI convenience ──────────────────────────────────────────────────────
-def print_summary(data: dict):
-    """Print a quick summary table — useful for sanity checking."""
-    meta = data.get('meta', {})
-    print(f"\nVCD Summary")
-    print(f"  Timescale : {meta.get('timescale', '?')}")
-    print(f"  End time  : {meta.get('end_time', '?')} (timescale units)")
-    print()
-
-    designs = [d for d in data if d != 'meta']
-    for design in designs:
-        signals = data[design]
-        total_toggles = sum(s['toggles'] for s in signals.values())
-        print(f"  [{design}]  {len(signals)} signals,  "
-              f"{total_toggles} total toggles")
-
-    print()
-    # Show top-5 most active signals for clean design as a sanity check
-    if 'clean' in data and data['clean']:
-        print("  Top 5 most active signals (clean design):")
-        sorted_sigs = sorted(data['clean'].items(),
-                             key=lambda x: x[1]['toggles'], reverse=True)
-        for name, info in sorted_sigs[:5]:
-            print(f"    {info['toggles']:>5} toggles  {name}")
-    print()
-
-
 if __name__ == '__main__':
-    import argparse
-    ap = argparse.ArgumentParser(description="Parse a VCD file for Trojan analysis")
-    ap.add_argument('vcd', nargs='?', default='all_designs.vcd',
-                    help='Path to VCD file (default: all_designs.vcd)')
-    ap.add_argument('--summary', action='store_true', default=True,
-                    help='Print summary table (default: on)')
-    args = ap.parse_args()
+    data = parse_vcd("all_designs.vcd")
+    print_summary(data)
 
-    print(f"Parsing {args.vcd} ...")
-    data = parse_vcd(args.vcd)
-
-    if args.summary:
-        print_summary(data)
-
-    # Quick sanity: check all 4 designs are present and have signals
     designs_found = [d for d in ('clean','comb','seq','ctrl') if data.get(d)]
     designs_missing = [d for d in ('clean','comb','seq','ctrl') if not data.get(d)]
 

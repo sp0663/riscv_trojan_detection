@@ -1,25 +1,24 @@
 #!/usr/bin/env python3
 """
 method1_stage_aggregation.py — Per-stage / per-region toggle aggregation
-════════════════════════════════════════════════════════════════════════════
 Detection method 1 of 8.
 
 What it does:
     Groups toggle counts by pipeline stage (IF/ID/EX/MEM/WB) and structural
-    region (ALU, Forwarding, Hazard, RegFile, ...) for all 4 designs, then
+    region (ALU, Forwarding, Hazard, RegFile,...) for all 4 designs, then
     plots comparison bar charts.
 
     Aggregating by stage rather than individual wires gives a much more robust
-    signal — small per-wire differences add up into clearly visible stage-level
+    signal - small per-wire differences add up into clearly visible stage-level
     deviations, while per-wire noise averages out.
 
 Why it catches Trojans:
     - Combinational Trojan (ALU): EX stage toggle count increases because
-      the Trojan fires and ripples through ALU output -> EX_MEM register.
+      the Trojan fires and ripples through ALU output = EX_MEM register.
     - Sequential Trojan (counter): EX stage count increases significantly
       because the counter toggles on every ADD — continuous activity.
     - Control-path Trojan (forwarding): EX stage forwarding region has FEWER
-      toggles (forwarding suppressed -> fewer mux switches downstream).
+      toggles (forwarding suppressed = fewer mux switches downstream).
 
 Outputs:
     plots/method1_stage_totals.png     — total toggles per stage per design
@@ -37,19 +36,14 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from collections import defaultdict
 
-# Local imports
-sys.path.insert(0, os.path.dirname(__file__))
 from vcd_parser import parse_vcd
-from signal_stage_map import (STAGE_MAP, STAGE_ORDER, DESIGN_ORDER,
-                               DESIGN_COLORS, get_stage_region)
+from signal_stage_map import (STAGE_MAP, STAGE_ORDER, DESIGN_ORDER, DESIGN_COLORS, get_stage_region)
 
-# ── Config ────────────────────────────────────────────────────────────────
 VCD_FILE        = "all_designs.vcd"
 PLOTS_DIR       = "plots"
 RESULTS_DIR     = "results"
 DEVIATION_FLAG  = 10.0   # flag regions with >10% deviation from clean (%)
 
-# ── Helpers ───────────────────────────────────────────────────────────────
 def aggregate_by_stage(data: dict) -> dict:
     """
     Returns:
@@ -77,7 +71,6 @@ def pct_deviation(trojan_val, clean_val):
     return ((trojan_val - clean_val) / clean_val) * 100.0
 
 
-# ── Plot 1: Stage totals bar chart ────────────────────────────────────────
 def plot_stage_totals(stage_totals: dict, out_path: str):
     stages  = STAGE_ORDER
     designs = DESIGN_ORDER
@@ -128,7 +121,6 @@ def plot_stage_totals(stage_totals: dict, out_path: str):
     print(f"  Saved: {out_path}")
 
 
-# ── Plot 2: Deviation from clean per stage ────────────────────────────────
 def plot_deviation(stage_totals: dict, out_path: str):
     stages   = STAGE_ORDER
     trojan_designs = [d for d in DESIGN_ORDER if d != 'clean']
@@ -186,7 +178,6 @@ def plot_deviation(stage_totals: dict, out_path: str):
     print(f"  Saved: {out_path}")
 
 
-# ── Plot 3: Region breakdown heatmap ─────────────────────────────────────
 def plot_region_heatmap(region_totals: dict, out_path: str):
     """
     Heatmap: rows = regions, cols = designs, values = % deviation from clean.
@@ -248,7 +239,6 @@ def plot_region_heatmap(region_totals: dict, out_path: str):
     print(f"  Saved: {out_path}")
 
 
-# ── Text summary ──────────────────────────────────────────────────────────
 def write_summary(stage_totals, region_totals, out_path):
     lines = []
     lines.append("=" * 62)
@@ -315,7 +305,6 @@ def write_summary(stage_totals, region_totals, out_path):
         print(line)
 
 
-# ── Entry point ───────────────────────────────────────────────────────────
 def run(vcd_path=VCD_FILE):
     os.makedirs(PLOTS_DIR,   exist_ok=True)
     os.makedirs(RESULTS_DIR, exist_ok=True)
@@ -328,23 +317,13 @@ def run(vcd_path=VCD_FILE):
     stage_totals, region_totals = aggregate_by_stage(data)
 
     print("  Generating plots ...")
-    plot_stage_totals(stage_totals,
-                      f"{PLOTS_DIR}/method1_stage_totals.png")
-    plot_deviation(stage_totals,
-                   f"{PLOTS_DIR}/method1_deviation.png")
-    plot_region_heatmap(region_totals,
-                        f"{PLOTS_DIR}/method1_region_heatmap.png")
-    write_summary(stage_totals, region_totals,
-                  f"{RESULTS_DIR}/method1_summary.txt")
+    plot_stage_totals(stage_totals, f"{PLOTS_DIR}/method1_stage_totals.png")
+    plot_deviation(stage_totals, f"{PLOTS_DIR}/method1_deviation.png")
+    plot_region_heatmap(region_totals, f"{PLOTS_DIR}/method1_region_heatmap.png")
+    write_summary(stage_totals, region_totals, f"{RESULTS_DIR}/method1_summary.txt")
 
     return data, stage_totals, region_totals
 
 
 if __name__ == '__main__':
-    import argparse
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--vcd', default=VCD_FILE)
-    ap.add_argument('--threshold', type=float, default=DEVIATION_FLAG)
-    args = ap.parse_args()
-    DEVIATION_FLAG = args.threshold
-    run(args.vcd)
+    run("all_designs.vcd")
