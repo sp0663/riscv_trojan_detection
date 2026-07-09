@@ -1,0 +1,577 @@
+{
+  "creator": "Yosys 0.66+183 (git sha1 b285b72e3-dirty, GNU /usr/bin/c++ 15.2.0)",
+  "modules": {
+    "PipelineCPU": {
+      "attributes": {
+        "top": "00000000000000000000000000000001",
+        "src": "PipelineCPU.v:1.1-327.10"
+      },
+      "ports": {
+        "clk": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "start": {
+          "direction": "input",
+          "bits": [ 3 ]
+        }
+      },
+      "cells": {
+        "m_ALU": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:221.9-227.6",
+            "module": "ALU",
+            "module_src": "ALU.v:1.1-29.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_ALUCtrl": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:214.13-219.6",
+            "module": "ALUCtrl",
+            "module_src": "ALUCtrl.v:1.1-49.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_Adder_1": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:85.11-89.6",
+            "module": "Adder",
+            "module_src": "Adder.v:1.1-11.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_Adder_2": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:172.11-176.6",
+            "module": "Adder",
+            "module_src": "Adder.v:1.1-11.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_BranchControl": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:109.19-116.6",
+            "module": "BranchControl",
+            "module_src": "BranchControl.v:1.1-24.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_Control": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:96.13-107.6",
+            "module": "Control",
+            "module_src": "Control.v:1.1-37.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_DataMemory": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:229.16-237.6",
+            "module": "DataMemory",
+            "module_src": "DataMemory.v:1.1-167.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_EX_MEMRegister": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:289.20-310.6",
+            "module": "EX_MEMRegister",
+            "module_src": "EX_MEMRegister.v:1.1-49.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_ID_EXRegister": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:259.19-287.6",
+            "module": "ID_EXRegister",
+            "module_src": "ID_EXRegister.v:1.1-75.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_IF_IDRegister": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:247.19-257.6",
+            "module": "IF_IDRegister",
+            "module_src": "IF_IDRegister.v:1.1-25.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_ImmGen": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_src": "PipelineCPU.v:162.26-165.6",
+            "module": "$paramod\\ImmGen\\Width=s32'00000000000000000000000000100000",
+            "module_dynports": "00000000000000000000000000000001",
+            "module_hdlname": "ImmGen",
+            "module_src": "ImmGen.v:1.1-25.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_InstMem": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:91.23-94.6",
+            "module": "InstructionMemory",
+            "module_src": "InstructionMemory.v:1.1-14.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_MEM_WBRegister": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:312.20-325.6",
+            "module": "MEM_WBRegister",
+            "module_src": "MEM_WBRegister.v:1.1-33.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_Mux_ALU": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_src": "PipelineCPU.v:186.26-191.6",
+            "module": "$paramod\\Mux2to1\\size=s32'00000000000000000000000000100000",
+            "module_dynports": "00000000000000000000000000000001",
+            "module_hdlname": "Mux2to1",
+            "module_src": "Mux2to1.v:1.1-13.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_Mux_PC": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_src": "PipelineCPU.v:178.26-184.6",
+            "module": "$paramod\\Mux3to1\\size=s32'00000000000000000000000000100000",
+            "module_dynports": "00000000000000000000000000000001",
+            "module_hdlname": "Mux3to1",
+            "module_src": "Mux3to1.v:1.1-21.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_Mux_WriteData": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_src": "PipelineCPU.v:239.26-245.6",
+            "module": "$paramod\\Mux3to1\\size=s32'00000000000000000000000000100000",
+            "module_dynports": "00000000000000000000000000000001",
+            "module_hdlname": "Mux3to1",
+            "module_src": "Mux3to1.v:1.1-21.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_PC": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:77.8-83.6",
+            "module": "PC",
+            "module_src": "PC.v:1.1-17.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_Register": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:146.14-156.6",
+            "module": "Register",
+            "module_src": "Register.v:3.1-35.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_ShiftLeftOne": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:167.18-170.6",
+            "module": "ShiftLeftOne",
+            "module_src": "ShiftLeftOne.v:1.1-8.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_forward_rs1": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:194.20-200.6",
+            "module": "forwarding_mux",
+            "module_src": "forwarding_mux.v:13.1-31.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_forward_rs2": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:203.20-209.6",
+            "module": "forwarding_mux",
+            "module_src": "forwarding_mux.v:13.1-31.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "m_hazard_unit": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "PipelineCPU.v:118.27-144.6",
+            "module": "hazard_detection_unit",
+            "module_src": "hazard_detection_unit.v:2.1-72.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        }
+      },
+      "netnames": {
+        "clk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "PipelineCPU.v:2.11-2.14"
+          }
+        },
+        "imm_shifted": {
+          "hide_name": 0,
+          "bits": [ "0", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x" ],
+          "attributes": {
+            "src": "PipelineCPU.v:25.17-25.28"
+          }
+        },
+        "m_Adder_1.b": {
+          "hide_name": 0,
+          "bits": [ "0", "0", "1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" ],
+          "signed": 1,
+          "attributes": {
+            "hdlname": "m_Adder_1 b",
+            "src": "Adder.v:3.25-3.26"
+          }
+        },
+        "m_Adder_2.b": {
+          "hide_name": 0,
+          "bits": [ "0", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x" ],
+          "signed": 1,
+          "attributes": {
+            "hdlname": "m_Adder_2 b",
+            "src": "Adder.v:3.25-3.26"
+          }
+        },
+        "m_DataMemory.clk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "hdlname": "m_DataMemory clk",
+            "src": "DataMemory.v:3.8-3.11",
+            "unused_bits": "0 "
+          }
+        },
+        "m_DataMemory.rst": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "hdlname": "m_DataMemory rst",
+            "src": "DataMemory.v:2.8-2.11",
+            "unused_bits": "0 "
+          }
+        },
+        "m_EX_MEMRegister.clk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "hdlname": "m_EX_MEMRegister clk",
+            "src": "EX_MEMRegister.v:2.11-2.14",
+            "unused_bits": "0 "
+          }
+        },
+        "m_EX_MEMRegister.rst": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "hdlname": "m_EX_MEMRegister rst",
+            "src": "EX_MEMRegister.v:3.11-3.14",
+            "unused_bits": "0 "
+          }
+        },
+        "m_ID_EXRegister.clk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "hdlname": "m_ID_EXRegister clk",
+            "src": "ID_EXRegister.v:2.11-2.14",
+            "unused_bits": "0 "
+          }
+        },
+        "m_ID_EXRegister.rst": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "hdlname": "m_ID_EXRegister rst",
+            "src": "ID_EXRegister.v:3.11-3.14",
+            "unused_bits": "0 "
+          }
+        },
+        "m_IF_IDRegister.clk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "hdlname": "m_IF_IDRegister clk",
+            "src": "IF_IDRegister.v:2.11-2.14",
+            "unused_bits": "0 "
+          }
+        },
+        "m_IF_IDRegister.rst": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "hdlname": "m_IF_IDRegister rst",
+            "src": "IF_IDRegister.v:3.11-3.14",
+            "unused_bits": "0 "
+          }
+        },
+        "m_MEM_WBRegister.clk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "hdlname": "m_MEM_WBRegister clk",
+            "src": "MEM_WBRegister.v:2.11-2.14",
+            "unused_bits": "0 "
+          }
+        },
+        "m_MEM_WBRegister.rst": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "hdlname": "m_MEM_WBRegister rst",
+            "src": "MEM_WBRegister.v:3.11-3.14",
+            "unused_bits": "0 "
+          }
+        },
+        "m_PC.clk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "hdlname": "m_PC clk",
+            "src": "PC.v:2.11-2.14",
+            "unused_bits": "0 "
+          }
+        },
+        "m_PC.rst": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "hdlname": "m_PC rst",
+            "src": "PC.v:3.11-3.14",
+            "unused_bits": "0 "
+          }
+        },
+        "m_Register.clk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "hdlname": "m_Register clk",
+            "src": "Register.v:4.11-4.14",
+            "unused_bits": "0 "
+          }
+        },
+        "m_Register.rst": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "hdlname": "m_Register rst",
+            "src": "Register.v:5.11-5.14",
+            "unused_bits": "0 "
+          }
+        },
+        "m_ShiftLeftOne.o": {
+          "hide_name": 0,
+          "bits": [ "0", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x" ],
+          "signed": 1,
+          "attributes": {
+            "hdlname": "m_ShiftLeftOne o",
+            "src": "ShiftLeftOne.v:3.26-3.27"
+          }
+        },
+        "start": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "PipelineCPU.v:3.11-3.16"
+          }
+        }
+      }
+    }
+  }
+}

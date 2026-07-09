@@ -247,7 +247,7 @@ module PipelineCPU_trojan_ctrl (
     IF_IDRegister m_IF_IDRegister(
         .clk(clk),
         .rst(start),
-        .enable(~~stall_signal && ~branch_flush),
+        .enable(~stall_signal && ~branch_flush),
         .pc_in(pc_o),
         .instr_in(inst),
         .adder1_in(adder1_out),

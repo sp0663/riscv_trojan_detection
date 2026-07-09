@@ -1,0 +1,10 @@
+read_verilog PipelineCPU_trojan_seq.v ALU_seq.v hazard_detection_unit.v Adder.v ALUCtrl.v BranchControl.v Control.v DataMemory.v EX_MEMRegister.v forwarding_mux.v ID_EXRegister.v IF_IDRegister.v ImmGen.v InstructionMemory.v MEM_WBRegister.v Mux2to1.v Mux3to1.v PC.v Register.v ShiftLeftOne.v
+
+
+synth -top PipelineCPU_trojan_seq -flatten 
+
+dfflibmap -liberty NangateOpenCellLibrary_typical.lib
+abc -liberty NangateOpenCellLibrary_typical.lib
+
+clean
+write_json seq_netlist.json
